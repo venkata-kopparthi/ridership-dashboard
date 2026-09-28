@@ -44,7 +44,7 @@ describe("App", () => {
     render(<App />);
     await screen.findByText("1,234");
 
-    await userEvent.click(screen.getByLabelText("Members"));
+    await userEvent.click(screen.getByRole("radio", { name: "Members" }));
     expect(fetchMock).toHaveBeenCalledWith("/api/summary?start=2026-06-01&end=2026-08-30&rider=member");
   });
 
