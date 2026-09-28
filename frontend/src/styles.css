@@ -1,0 +1,295 @@
+:root {
+  --bg: #eef1f4;
+  --surface: #ffffff;
+  --ink: #16242f;
+  --muted: #5b6b78;
+  --rule: #d8dfe5;
+  --member: #1f5fad;
+  --casual: #f2b632;
+  --casual-line: #c48a0a;
+  --radius-sm: 6px;
+  --radius-lg: 14px;
+
+  font-family: "Barlow", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  font-size: 16px;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: "Barlow Semi Condensed", "Barlow", sans-serif;
+  font-weight: 600;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.sub {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+
+/* filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.filters > label {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+input[type="date"] {
+  font: inherit;
+  color: var(--ink);
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.segmented {
+  display: flex;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  margin: 0;
+  background: var(--surface);
+}
+
+.segmented label {
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.segmented label.on {
+  background: var(--ink);
+  color: #fff;
+}
+
+.segmented input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmented label:has(input:focus-visible),
+input[type="date"]:focus-visible {
+  outline: 2px solid var(--member);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* totals */
+.totals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin: 0 0 2rem;
+  border-top: 3px solid var(--ink);
+}
+
+.totals > div {
+  padding: 0.9rem 1rem 0 0;
+}
+
+.totals dt {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.totals dd {
+  margin: 0.2rem 0 0;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.totals dd small {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.totals dd.station {
+  font-size: 1.5rem;
+  padding-top: 0.35rem;
+}
+
+/* panels */
+.panel {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.week {
+  margin-bottom: 1.25rem;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 860px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* heatmap */
+.heatmap {
+  overflow-x: auto;
+}
+
+.heatmap-row {
+  display: grid;
+  grid-template-columns: 3rem repeat(24, minmax(22px, 1fr));
+  gap: 3px;
+  margin-bottom: 3px;
+  min-width: 640px;
+}
+
+.heatmap .cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 3px;
+}
+
+.heatmap .day {
+  align-self: center;
+  font-weight: 500;
+}
+
+.heatmap .hour {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.legend i {
+  display: block;
+  width: 140px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* stations */
+.stations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.station-head {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.station-head .count {
+  color: var(--muted);
+}
+
+.bar {
+  height: 6px;
+  background: var(--bg);
+  border-radius: 3px;
+  margin-top: 0.3rem;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--member);
+  border-radius: 3px;
+}
+
+.net {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* states */
+.loading {
+  opacity: 0.55;
+  transition: opacity 150ms;
+}
+
+.error {
+  background: #fdecea;
+  color: #8a1c12;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.empty {
+  color: var(--muted);
+  padding: 2rem 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading {
+    transition: none;
+  }
+}
