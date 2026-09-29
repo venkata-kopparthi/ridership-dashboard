@@ -23,4 +23,15 @@ describe("WeekHeatmap", () => {
     expect(peak).toHaveAttribute("data-strong", "true");
     expect(screen.getByLabelText("Tuesday 3a, 10 trips")).not.toHaveAttribute("data-strong");
   });
+
+  it("scales each day on its own when perDay is set", () => {
+    // Saturday (row 5) is much quieter than the Tuesday peak
+    const quietSaturday = cells.map((c) => (c.weekday === 5 && c.hour === 14 ? { ...c, trips: 40 } : c));
+
+    const { rerender } = render(<WeekHeatmap cells={quietSaturday} />);
+    expect(screen.getByLabelText("Saturday 2p, 40 trips")).not.toHaveAttribute("data-strong");
+
+    rerender(<WeekHeatmap cells={quietSaturday} perDay />);
+    expect(screen.getByLabelText("Saturday 2p, 40 trips")).toHaveAttribute("data-strong", "true");
+  });
 });

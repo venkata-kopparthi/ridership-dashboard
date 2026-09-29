@@ -10,8 +10,14 @@ function shade(t: number) {
   return `hsl(214 ${45 + t * 30}% ${l}%)`;
 }
 
-export function WeekHeatmap({ cells }: { cells: HeatCell[] }) {
-  const max = Math.max(1, ...cells.map((c) => c.trips));
+type Props = {
+  cells: HeatCell[];
+  /** Scale each row on its own, so quieter days are easier to read. */
+  perDay?: boolean;
+};
+
+export function WeekHeatmap({ cells, perDay = false }: Props) {
+  const weekMax = Math.max(1, ...cells.map((c) => c.trips));
   const byDay = DAYS.map((_, d) => cells.filter((c) => c.weekday === d).sort((a, b) => a.hour - b.hour));
 
   return (
@@ -24,27 +30,30 @@ export function WeekHeatmap({ cells }: { cells: HeatCell[] }) {
           </span>
         ))}
       </div>
-      {byDay.map((row, d) => (
-        <div key={d} className="heatmap-row" role="row">
-          <span role="rowheader" className="day">
-            {DAYS[d]}
-          </span>
-          {row.map((c) => {
-            const t = c.trips / max;
-            return (
-              <span
-                key={c.hour}
-                role="cell"
-                className="cell"
-                style={{ background: shade(t) }}
-                title={`${DAY_NAMES[d]} ${hourLabel(c.hour)}: ${fmt(c.trips)} trips`}
-                aria-label={`${DAY_NAMES[d]} ${hourLabel(c.hour)}, ${fmt(c.trips)} trips`}
-                data-strong={t > 0.6 || undefined}
-              />
-            );
-          })}
-        </div>
-      ))}
+      {byDay.map((row, d) => {
+        const max = perDay ? Math.max(1, ...row.map((c) => c.trips)) : weekMax;
+        return (
+          <div key={d} className="heatmap-row" role="row">
+            <span role="rowheader" className="day">
+              {DAYS[d]}
+            </span>
+            {row.map((c) => {
+              const t = c.trips / max;
+              return (
+                <span
+                  key={c.hour}
+                  role="cell"
+                  className="cell"
+                  style={{ background: shade(t) }}
+                  title={`${DAY_NAMES[d]} ${hourLabel(c.hour)}: ${fmt(c.trips)} trips`}
+                  aria-label={`${DAY_NAMES[d]} ${hourLabel(c.hour)}, ${fmt(c.trips)} trips`}
+                  data-strong={t > 0.6 || undefined}
+                />
+              );
+            })}
+          </div>
+        );
+      })}
       <div className="legend" aria-hidden="true">
         <span>Fewer</span>
         <i style={{ background: `linear-gradient(90deg, ${shade(0)}, ${shade(0.5)}, ${shade(1)})` }} />

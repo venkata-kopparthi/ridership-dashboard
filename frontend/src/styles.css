@@ -175,6 +175,34 @@ input[type="date"]:focus-visible {
   margin-bottom: 1.25rem;
 }
 
+.panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.panel-head h2 {
+  margin-bottom: 0;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.toggle input {
+  accent-color: var(--member);
+  width: 1rem;
+  height: 1rem;
+}
+
 .split {
   display: grid;
   grid-template-columns: 2fr 1fr;

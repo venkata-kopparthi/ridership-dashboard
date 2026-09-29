@@ -20,6 +20,7 @@ export default function App() {
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [perDay, setPerDay] = useState(false);
 
   useEffect(() => {
     api
@@ -74,8 +75,14 @@ export default function App() {
           ) : (
             <>
               <section className="panel week">
-                <h2>The week, hour by hour</h2>
-                <WeekHeatmap cells={data.heatmap} />
+                <div className="panel-head">
+                  <h2>The week, hour by hour</h2>
+                  <label className="toggle">
+                    <input type="checkbox" checked={perDay} onChange={(e) => setPerDay(e.target.checked)} />
+                    Compare within each day
+                  </label>
+                </div>
+                <WeekHeatmap cells={data.heatmap} perDay={perDay} />
               </section>
 
               <div className="split">

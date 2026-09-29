@@ -1,6 +1,6 @@
 # Ridership dashboard
 
-Dashboard for bike-share trip data: totals, trips per day, a weekday × hour heatmap and the busiest stations, filterable by date range and rider type (member or casual).
+Dashboard for bike-share trip data: totals, trips per day, a weekday × hour heatmap and the busiest stations, filterable by date range and rider type (member or casual). The heatmap can also scale each day on its own, which makes quieter weekend patterns easier to see.
 
 - **API:** FastAPI + SQLite, tested with pytest
 - **Web:** React, TypeScript, Vite, Recharts, tested with Vitest and Testing Library
@@ -54,5 +54,4 @@ CI runs both on every push.
 ## Notes / TODO
 
 - Sample data only. Swapping in a real trip export (e.g. Citi Bike's monthly CSVs) would mean replacing `seed.py` with a loader.
-- The heatmap uses a single color scale; a per-row scale would make quieter days easier to compare.
 - No caching yet. Every filter change runs four queries, which is fine for SQLite at this size.
